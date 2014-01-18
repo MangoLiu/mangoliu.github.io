@@ -7,7 +7,7 @@ MangoLiu's Blogs
 ##常用算法系列
 ##自然启发算法系列
 ##文本处理
-
+##spring+struts+hibernate系列
 
 
 
