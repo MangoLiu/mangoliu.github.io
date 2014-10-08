@@ -1,13 +1,12 @@
 mangoliu.github.io
 ==================
 
-MangoLiu's Blogs
-
-##机器学习系列
-##常用算法系列
-##自然启发算法系列
-##文本处理
-##spring+struts+hibernate系列
+MangoLiu's Blogs包括：
+###读书笔记
+###KN数字图片识别
+###机器学习
+###音频广告推送模型设计
+###随笔
 
 
 
