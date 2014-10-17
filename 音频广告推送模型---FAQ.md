@@ -46,6 +46,32 @@
 <strong>14 Q:如何处理的特殊值？</strong><br>
 <strong>A:</strong>具体参见Scale.java中对各个维度的处理，有注释。大多定为1或-1<br>
 
+<strong>15 Q:引入了libsvm中哪些包？</strong><br>
+<strong>A:</strong>仅仅引入libsvm下的java文件夹的文件即可。此外还额外的引入了tool文件夹下的文件，用于后面的调优。<br>
+
+<strong>16 Q:如何调用libsvm中的java文件？</strong><br>
+<strong>A:</strong>
+>  svm_train svmt=new svm_train();
+  svm_predict svmp=new svm_predict();
+  String[] argvTrain={
+    "TR1.data",                       //训练文件
+    "MO1.model"                      //模型文件，训练结果
+  };
+  String[] argvPredict={
+    "PR1.data",                     //预测文件
+    "MO1.model",                     //模型文件
+    "RE1.out"                       //预测结果文件
+  };
+  try {
+   svmt.main(argvTrain);
+   svmp.main(argvPredict);
+  } catch (IOException e) {
+   e.printStackTrace();
+  }
+<br>
+
+<strong>Q:</strong><br>
+<strong>A:</strong><br>
+
 --------------------------------
 ######（转载本站文章请注明作者和出处 <a href="https://github.com/MangoLiu">MangoLiu</a> ，请勿用于任何商业用途）
-
