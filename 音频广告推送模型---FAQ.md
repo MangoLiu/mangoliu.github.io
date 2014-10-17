@@ -51,7 +51,8 @@
 
 <strong>16 Q:如何调用libsvm中的java文件？</strong><br>
 <strong>A:</strong>
->  svm_train svmt=new svm_train();
+```java
+  svm_train svmt=new svm_train();
   svm_predict svmp=new svm_predict();
   String[] argvTrain={
     "TR1.data",                       //训练文件
@@ -65,9 +66,11 @@
   try {
    svmt.main(argvTrain);
    svmp.main(argvPredict);
+   
   } catch (IOException e) {
    e.printStackTrace();
   }
+```
 <br>
 
 <strong>Q:</strong><br>
