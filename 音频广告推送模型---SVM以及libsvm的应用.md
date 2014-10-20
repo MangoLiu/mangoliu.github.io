@@ -46,13 +46,16 @@ try {
    nSV = 3168, nBSV = 3058<br>
    Total nSV = 3168<br>
    Accuracy = 43.333333333333336% (26/60) (classification)<br>
-   <br>-----------<br>
+
+<br>-----------<br>
+>
    其中，#iter为迭代次数，<br>
    nu 是你选择的核函数类型的参数，<br>
    obj为SVM文件转换为的二次规划求解得到的最小值，rho为判决函数的偏置项b，<br>
    nSV 为标准支持向量个数，nBSV为边界上的支持向量个数(a[i]=c)，<br>
    Total nSV为支持向量总个数（
    对于两类来说，因为只有一个分类模型Total nSV = nSV，但是对于多类，这个是各个分类模型的nSV之和）。<br>
+<br>
 在目录下，还可以看到产生了一个train.model文件，可以用记事本打开，记录了训练后的结果。
 >
    svm_type c_svc         //所选择的svm类型，默认为c_svc<br>
