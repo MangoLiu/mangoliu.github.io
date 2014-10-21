@@ -107,7 +107,8 @@ svmtrain主要实现对训练数据集的训练，并可以获得SVM模型。
 
 注意：上文中的wi，由于C是惩罚因子，可以针对正负样本使用不同的惩罚值。 
 这个惩罚值是指 对要训练的分类器 发生误判的惩罚程度。
-比如：对于unbalanced的数据集，假设正样本+1占10%,负样本-1占90%, 正负样本比例为1:9. 按道理来说，我们训练svm分类器时，如果将+1样本误判为-1样本，我们需要加大惩罚力度。
+比如：对于unbalanced的数据集，假设正样本+1占10%,负样本-1占90%, 正负样本比例为1:9。 按道理来说，我们训练svm分类器时，如果将+1样本误判为-1样本，我们需要加大惩罚力度。
+
 结合Libsvm FAQ中所说的例子，“svm-train -s 0 -c 10 -w1 1 -w-1 5 data_file 。 
 the penalty for class "-1" is larger. Note that this -w option is for C-SVC only”。
 那此处对于我举的例子，命令应该是：svm-train -s 0 -c 10 -w1 9 -w-1 1 data_file 
@@ -129,7 +130,7 @@ c-svc和 nu-svc本质差不多,c-svc中c的范围是1到正无穷;<br>
 nu-svc中nu的范围是0到1，还有nu是错分样本所占比例的上界，支持向量所占比列的下界。<br>
 在libsvm中，不同的svm类型意味着不同的模型优化函数和不同的决策函数。<br>
 C-SVC：<br>
-![C-SVC](/images/C-SVC.png =300x250)<br><br>
+![C-SVC](/images/C-SVC.png)<br><br>
 C-SVC：<br>
 ![V-SVC](/images/V-SVC.png)<br><br>
 one-class SVM：<br>
