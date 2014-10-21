@@ -129,9 +129,9 @@ model_file：可选项，为要保存的结果文件，称为模型文件，以�
 c-svc和 nu-svc本质差不多,c-svc中c的范围是1到正无穷;<br>
 nu-svc中nu的范围是0到1，还有nu是错分样本所占比例的上界，支持向量所占比列的下界。<br>
 在libsvm中，不同的svm类型意味着不同的模型优化函数和不同的决策函数。<br>
-*C-SVC*：<br>
-![C-SVC](/images/C-SVC.png)<br><br>
 C-SVC：<br>
+![C-SVC](/images/C-SVC.png)<br><br>
+V-SVC：<br>
 ![V-SVC](/images/V-SVC.png)<br><br>
 one-class SVM：<br>
 ![one-class SVM](/images/one-class SVM.png)<br><br>
