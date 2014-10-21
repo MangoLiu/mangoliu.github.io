@@ -46,8 +46,7 @@ try {
    nSV = 3168, nBSV = 3058<br>
    Total nSV = 3168<br>
    Accuracy = 43.333333333333336% (26/60) (classification)<br>
-
-<br>-----------<br>
+-----------<br>
 >
    其中，#iter为迭代次数，<br>
    nu 是你选择的核函数类型的参数，<br>
@@ -129,8 +128,8 @@ c-svc和 nu-svc本质差不多,c-svc中c的范围是1到正无穷;<br>
 nu-svc中nu的范围是0到1，还有nu是错分样本所占比例的上界，支持向量所占比列的下界。<br>
 在libsvm中，不同的svm类型意味着不同的模型优化函数和不同的决策函数。<br>
 *C-SVC*：<br>
-![C-SVC](/images/C-SVC.png =300x250)<br><br>
-C-SVC：<br>
+![C-SVC](/images/C-SVC.png)<br><br>
+V-SVC：<br>
 ![V-SVC](/images/V-SVC.png)<br><br>
 one-class SVM：<br>
 ![one-class SVM](/images/one-class SVM.png)<br><br>
@@ -149,13 +148,14 @@ V-SVR：<br>
 RBF含有两个参数误差惩罚参数C和高斯核参数γ。其中两者对错误率的影响如下：<br>
 ![C&R](/images/C&R.png)<br>
 因此，对于一个基于RBF核函数的SVM，其性能是由参数(C,γ)决定。<br>
+<br>
 <strong>7 参数调优</strong><br>
 由于选取不同的C和γ就会得到不同SVM，常用的参数寻优方式如下：<br>
-7.1 双线性搜索法<br>
+<strong>7.1 双线性搜索法</strong><br>
 其原理是利用不同的(C,γ)取值对应不同的SVM的性质。
 参数空间可分为欠训练/过训练区和“好区”。以log C和log γ作为参数空间的坐标。经过大量实验证明，学习精度最高的参数组合将集中在“好区”中的直线log γ=log C-log N附近。
 其中，对线性SVM求解最佳参数C,使其以其为参数的线性SVM学习精度最高，称之为N。<br>
-7.2 网格搜索法<br>
+<strong>7.2 网格搜索法</strong><br>
 将C和γ分别取M个值和N个值，对M*N个组合，分别进行训练不同的SVM，再估计其学习精度，从而在M*N个组合中得到最高的一个组合作为最有参数。<br>
 由上可知，网格法具有较高的学习精度，但是计算量大。而双线性法计算量小，但和网格法相比，学习精度较低。<br>
 
