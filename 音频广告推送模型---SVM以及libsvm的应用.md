@@ -107,8 +107,7 @@ svmtrain主要实现对训练数据集的训练，并可以获得SVM模型。
 
 注意：上文中的wi，由于C是惩罚因子，可以针对正负样本使用不同的惩罚值。 
 这个惩罚值是指 对要训练的分类器 发生误判的惩罚程度。
-比如：正负样本比例为1:9，我们训练svm分类器时，如果将+1样本误判为-1样本，我们需要加大惩罚力度。
-
+比如：对于unbalanced的数据集，假设正样本+1占10%,负样本-1占90%, 正负样本比例为1:9. 按道理来说，我们训练svm分类器时，如果将+1样本误判为-1样本，我们需要加大惩罚力度。
 结合Libsvm FAQ中所说的例子，“svm-train -s 0 -c 10 -w1 1 -w-1 5 data_file 。 
 the penalty for class "-1" is larger. Note that this -w option is for C-SVC only”。
 那此处对于我举的例子，命令应该是：svm-train -s 0 -c 10 -w1 9 -w-1 1 data_file 
@@ -129,9 +128,9 @@ model_file：可选项，为要保存的结果文件，称为模型文件，以�
 c-svc和 nu-svc本质差不多,c-svc中c的范围是1到正无穷;<br>
 nu-svc中nu的范围是0到1，还有nu是错分样本所占比例的上界，支持向量所占比列的下界。<br>
 在libsvm中，不同的svm类型意味着不同的模型优化函数和不同的决策函数。<br>
+*C-SVC*：<br>
+![C-SVC](/images/C-SVC.png =300x250)<br><br>
 C-SVC：<br>
-![C-SVC](/images/C-SVC.png)<br><br>
-V-SVC：<br>
 ![V-SVC](/images/V-SVC.png)<br><br>
 one-class SVM：<br>
 ![one-class SVM](/images/one-class SVM.png)<br><br>
@@ -141,7 +140,22 @@ V-SVR：<br>
 ![V-SVR](/images/V-SVR.png)<br><br>
 
 <strong>6 核函数</strong><br>
+核函数的目的就是在非线性可分的情况下，通过一个映射函数，将低维的输入空间映射到高维的特征空间。<br>
+这样，低维的线性不可分问题就变成高维空间的线性可分问题。<br>
+目前常用的核函数有如下4种：<br>
+![4_kernels](/images/kernel_four.png)<br>
+其中，RBF核函数是一个应用较为广泛的核函数，通过参数的选择，它可以使用于任意分布的样本。<br>
+RBF含有两个参数误差惩罚参数C和高斯核参数γ。其中两者对错误率的影响如下：<br>
+![C&R](/images/C&R.png)<br>
+因此，对于一个基于RBF核函数的SVM，其性能是由参数(C,γ)决定。<br>
 <strong>7 参数调优</strong><br>
-
+由于选取不同的C和γ就会得到不同SVM，常用的参数寻优方式如下：<br>
+7.1 双线性搜索法<br>
+其原理是利用不同的(C,γ)取值对应不同的SVM的性质。
+参数空间可分为欠训练/过训练区和“好区”。以log C和log γ作为参数空间的坐标。经过大量实验证明，学习精度最高的参数组合将集中在“好区”中的直线log γ=log C-log N附近。
+其中，对线性SVM求解最佳参数C,使其以其为参数的线性SVM学习精度最高，称之为N。<br>
+7.2 网格搜索法<br>
+将C和γ分别取M个值和N个值，对M*N个组合，分别进行训练不同的SVM，再估计其学习精度，从而在M*N个组合中得到最高的一个组合作为最有参数。<br>
+由上可知，网格法具有较高的学习精度，但是计算量大。而双线性法计算量小，但和网格法相比，学习精度较低。<br>
 --------------------------------
 ######（转载本站文章请注明作者和出处 <a href="https://github.com/MangoLiu">MangoLiu</a> ，请勿用于任何商业用途）
