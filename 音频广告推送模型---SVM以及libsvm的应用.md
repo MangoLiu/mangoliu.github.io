@@ -2,13 +2,13 @@
 --------------------------------
 ##SVM
 本文需要有SVM的理论知识背景，若是对SVM不熟悉，请先参考：<br>
-`《数据挖掘导论》`(人民邮电出版社)，相对简单入门。<br>
-`《统计学习方法》`(清华大学出版社)，相对深入数学原理。<br>
-`《机器学习实战》`(人民邮电出版社)，相对偏重应用(python编写)。<br>
+`《数据挖掘导论》` (人民邮电出版社)，相对简单入门。<br>
+`《统计学习方法》` (清华大学出版社)，相对深入数学原理。<br>
+`《机器学习实战》` (人民邮电出版社)，相对偏重应用(python编写)。<br>
 三本书中都有涉及SVM的基本知识。而且讲的不错。<br>
 再额外推荐下july写的[支持向量机通俗导论(理解SVM的三层境界)](http://blog.csdn.net/v_july_v/article/details/7624837)
 
-## libSVM
+##libSVM
 本文主要讲[libsvm(百度百科)](http://baike.baidu.com/view/598089.htm?fr=aladdin)的学习和项目的中的实际应用。<br>
 
 <strong>1 下载libsvm，引入java包。</strong><br>
@@ -56,6 +56,7 @@ try {
    Total nSV为支持向量总个数（
    对于两类来说，因为只有一个分类模型Total nSV = nSV，但是对于多类，这个是各个分类模型的nSV之和）。<br>
 <br>
+
 在目录下，还可以看到产生了一个train.model文件，可以用记事本打开，记录了训练后的结果。
 >
    svm_type c_svc         //所选择的svm类型，默认为c_svc<br>
@@ -71,7 +72,73 @@ try {
    1.0 1:0.5833333333333334 2:0.08823529411764706 3:0.4596100278551532 4:0.0 5:0.0 6:0.9805126532149177 7:0.012915604324685265 8:0.020193845364303305 <br>
    ......<br>
 
+<strong>4 svmtrain操作参数说明</strong><br>
+以下引自网络
+```
+svmtrain主要实现对训练数据集的训练，并可以获得SVM模型。
+用法： svmtrain [options] training_set_file [model_file]
+其中，options为操作参数，可用的选项即表示的涵义如下所示:
+-s 设置svm类型,默认0：
+    0 –- C-SVC
+    1 –- v-SVC(nu-SVC)
+    2 –- one-class-SVM
+    3 –- ε-SVR
+    4 –- n-SVR
 
+-t 设置核函数类型，默认值为2。(γ即为gamma)
+    0 -- 线性核：u'*v
+    1 -- 多项式核：(g*u'*v+ coef 0)^degree
+    2 -- RBF核：exp(-γ*||u-v||^2)
+    3 -- sigmoid核：tanh(γ*u'*v+ coef 0)
+
+-d degree: 设置多项式核中degree的值，默认为3
+
+-gγ: 设置核函数中γ的值，默认为1/k，k为特征（或者说是属性）数；
+    -r coef 0:设置核函数中的coef 0，默认值为0；
+    -c cost：设置C-SVC、ε-SVR、n-SVR中从惩罚系数C，默认值为1；
+    -n v ：设置v-SVC、one-class-SVM 与v-SVR中参数n，默认值0.5；
+    -p ε ：设置v-SVR的损失函数中的e ，默认值为0.1；
+    -m cachesize：设置cache内存大小，以MB为单位，默认值为40；
+    -e ε ：设置终止准则中的可容忍偏差，默认值为0.001；
+    -h shrinking：是否使用启发式，可选值为0 或1，默认值为1；
+    -b 概率估计：是否计算SVC或SVR的概率估计，可选值0 或1，默认0；
+    -wi weight：对各类样本的惩罚系数C加权，默认值为1；
+    -v n：n折交叉验证模式；
+
+注意：上文中的wi，由于C是惩罚因子，可以针对正负样本使用不同的惩罚值。 这个惩罚值是指 对要训练的分类器 发生误判的惩罚程度。
+比如：对于unbalanced的数据集，假设正样本+1占10%,负样本-1占90%, 正负样本比例为1:9. 按道理来说，我们训练svm分类器时，如果将+1样本误判为-1样本，我们需要加大惩罚力度。
+结合Libsvm FAQ中所说的例子，“svm-train -s 0 -c 10 -w1 1 -w-1 5 data_file 。 the penalty for class "-1" is larger. Note that this -w option is for C-SVC only”。
+那此处对于我举的例子，命令应该是：svm-train -s 0 -c 10 -w1 9 -w-1 1 data_file 
+相当于采用C-SVC模式，对+1误判惩罚为10*9=90, 对-1误判为10*1=10.
+
+model_file：可选项，为要保存的结果文件，称为模型文件，以便在预测时使用。
+默认情况下，只需要给函数提供一个样本文件名就可以了，但为了能保存结果，还是要提供一个结果文件名。
+比如:test.model,则命令为：svmtrain test.txt test.model
+```
+<strong>5 svm类型</strong><br>
+通过设置-s来，指定不同的svm类型那个。<br>
+    0 –- C-SVC<br>
+    1 –- v-SVC(nu-SVC)<br>
+    2 –- one-class-SVM<br>
+    3 –- ε-SVR<br>
+    4 –- n-SVR<br>
+前三个是分类的，后两个是回归的。<br>
+c-svc和 nu-svc本质差不多,c-svc中c的范围是1到正无穷;<br>
+nu-svc中nu的范围是0到1，还有nu是错分样本所占比例的上界，支持向量所占比列的下界。<br>
+在libsvm中，不同的svm类型意味着不同的模型优化函数和不同的决策函数。<br>
+C-SVC：<br>
+![C-SVC](/images/C-SVC.png)<br>
+C-SVC：<br>
+![V-SVC](/images/V-SVC.png)<br>
+one-class SVM：<br>
+![one-class SVM](/images/one-class SVM.png)<br>
+epsilon-SVR：<br>
+![epsilon-SVR](/images/epsilon-SVR.png)<br>
+V-SVR：<br>
+![V-SVR](/images/V-SVR.png)<br>
+
+<strong>6 核函数</strong><br>
+<strong>7 参数调优</strong><br>
 
 --------------------------------
 ######（转载本站文章请注明作者和出处 <a href="https://github.com/MangoLiu">MangoLiu</a> ，请勿用于任何商业用途）
