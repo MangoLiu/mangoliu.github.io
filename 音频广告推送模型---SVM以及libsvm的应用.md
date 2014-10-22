@@ -128,9 +128,9 @@ c-svc和 nu-svc本质差不多,c-svc中c的范围是1到正无穷;<br>
 nu-svc中nu的范围是0到1，还有nu是错分样本所占比例的上界，支持向量所占比列的下界。<br>
 在libsvm中，不同的svm类型意味着不同的模型优化函数和不同的决策函数。<br>
 ![C-SVC](/images/C-SVC.png)
-![V-SVC](/images/V-SVC.png)<br><br>
+![V-SVC](/images/V-SVC.png)
 ![one-class SVM](/images/one-class SVM.png)
-![epsilon-SVR](/images/epsilon-SVR.png)<br><br>
+![epsilon-SVR](/images/epsilon-SVR.png)
 ![V-SVR](/images/V-SVR.png)<br><br>
 
 <strong>6 核函数</strong><br>
@@ -158,25 +158,8 @@ RBF含有两个参数误差惩罚参数C和高斯核参数γ。其中两者对�
 在libSVM的tools文件夹里面包含了4个Python文件，是用来对参数优选的。其中最常用的是easy.py和grid.py。<br>
 <strong>8.1 grid.py</strong><br>
 grid.py是对C-SVC的参数C和γ做优选的，原理也是网格遍历。<br>
-在Stack Overflow上有这样一段话：<br>
->
-  As far as I know there is no script that does this, however I don't see why grid.py couldn't easily be extended to do so. However, I don't think its worth the effort.<br>
-  <br>
-  First of all, you need to choose your kernel. This is a parameter in itself. Each kernel has a different set of parameters, and will perform differently, so in order to compare kernels you will have to optimize each kernel's parameters.<br>
-  <br>
-  C, the cost parameter is an overall parameter that applies to SVM itself. The other parameters are all inputs to the kernel function. C controls the tradeoff between wide margin and more training points misclassified (but a model which may generalize better to future data) and a narrow margin which fits the training points better but may be overfitted to the training data.<br>
-  <br>
-  Generally, the two most widely used kernels are linear (which requires no parameters) and the RBF kernel.<br>
-  <br>
-  The RBF kernel takes the gamma parameter. This must be optimized, its value will significantly affect performance.<br>
-  <br>
-  If you are using the Polynomial kernel, d is the main parameter, you would optimize that. It doesn't make sense to modify the other parameters from the default unless you have some mathematical reason why doing so would better fit your data. In my experience the polynomial kernel can give good results, but a minuscule increase if any over the RBF kernel at a huge computational cost.<br>
-  <br>
-  Similar with the sigmoid kernel, gamma is your main parameter, optimize that and leave coef0 at the default, unless you have a good understanding of why this would better fit your data.<br>
-  <br>
-  So the reason why grid.py does not optimize other parameters is because in most cases its simply unnecessary and generally won't result in an improvement in performance. As for your second question: No, this is not a case where optimizing one will optimize the other. The optimal values of these parameters are specific to your dataset. Changing the value of the kernel parameters will affect the optimal value of C. This is why a grid search is recommended. Adding these extra parameters to your search is going to significantly increase the time it will take and unlikely to give you an increase in classifier performance.<br>
 
-此外，在libSVM的官方README的部分摘要如下：<br>
+在libSVM的官方README的部分摘要如下：<br>
 ```
 Part II: Parameter Selection Tools
 
@@ -210,7 +193,6 @@ has a bug. If you use cygwin on windows, please use gunplot-x11.
 
 Example
 =======
-
 > python grid.py -log2c -5,5,1 -log2g -4,0,1 -v 5 -m 300 heart_scale
 
 Users (in particular MS Windows users) may need to specify the path of
@@ -257,7 +239,21 @@ If -log2c, -log2g, or -v is not specified, default values are used.
 If your system uses telnet instead of ssh, you list the computer names
 in telnet_workers.
 ```
-grid.py运行完以后，你可以把最优参数输入到svmtrain中进行训练了。<br>
+*为了运行grid.py需要安装Python，并在path环境变量中进行添加路径。以及绘图工具gnuplot。
+*找到grid.py文件。用python打开（不能双击，而要右键选择“Edit with IDLE”），修改svmtrain_exe和gnuplot_exe的路径。
+```python
+svmtrain_exe = r"D:\libSVM\program\svm-train.exe"
+gnuplot_exe = r"D:\libSVM\gnuplot\pgnuplot.exe"
+```
+*运行cmd，进入dos环境，定位到grid.py的地方。
+python grid.py heart_scale
+你就会看到dos窗口中飞速乱串的[local]数据，以及一个gnuplot的动态绘图窗口。大约过10秒钟，就会停止。直接看最后一行：
+2048.0 0.0001220703125 84.0741
+其意义表示：C = 2048.0；γ=0.0001220703125；交叉验证精度CV Rate = 84.0741%，这就是最优结果。
+
+*打开目录tools，我们可以看到新生成了两个文件：heart_scale.out和heart_scale.png，第一个文件就是搜索过程中的[local]和最优数据，第二文件就是gnuplot图像。
+
+*grid.py运行完以后，你可以把最优参数输入到svmtrain中进行训练了。<br>
 
 <strong>8.2 easy.py</strong><br>
 文件easy.py对样本文件做了“一条龙服务”，从参数优选，到文件预测。因此，其对grid.py、svm-train、svm-scale和svm-predict都进行了调用（当然还有必须的python和gnuplot）。因此，运行easy.py需要保证这些文件的路径都要正确。当然还需要样本文件和预测文件。<br>
