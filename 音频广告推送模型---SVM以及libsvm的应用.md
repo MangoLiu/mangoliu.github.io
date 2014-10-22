@@ -127,7 +127,7 @@ model_file：可选项，为要保存的结果文件，称为模型文件，以�
 c-svc和 nu-svc本质差不多,c-svc中c的范围是1到正无穷;<br>
 nu-svc中nu的范围是0到1，还有nu是错分样本所占比例的上界，支持向量所占比列的下界。<br>
 在libsvm中，不同的svm类型意味着不同的模型优化函数和不同的决策函数。<br>
-*C-SVC*：<br>
+C-SVC：<br>
 ![C-SVC](/images/C-SVC.png)<br><br>
 V-SVC：<br>
 ![V-SVC](/images/V-SVC.png)<br><br>
@@ -149,7 +149,7 @@ RBF含有两个参数误差惩罚参数C和高斯核参数γ。其中两者对�
 ![C&R](/images/C&R.png)<br>
 因此，对于一个基于RBF核函数的SVM，其性能是由参数(C,γ)决定。<br>
 <br>
-<strong>7 参数调优</strong><br>
+<strong>7 参数调优原理</strong><br>
 由于选取不同的C和γ就会得到不同SVM，常用的参数寻优方式如下：<br>
 <strong>7.1 双线性搜索法</strong><br>
 其原理是利用不同的(C,γ)取值对应不同的SVM的性质。
@@ -158,6 +158,115 @@ RBF含有两个参数误差惩罚参数C和高斯核参数γ。其中两者对�
 <strong>7.2 网格搜索法</strong><br>
 将C和γ分别取M个值和N个值，对M*N个组合，分别进行训练不同的SVM，再估计其学习精度，从而在M*N个组合中得到最高的一个组合作为最有参数。<br>
 由上可知，网格法具有较高的学习精度，但是计算量大。而双线性法计算量小，但和网格法相比，学习精度较低。<br>
+<br>
+<strong>8 参数调优应用</strong><br>
+在libSVM的tools文件夹里面包含了4个Python文件，是用来对参数优选的。其中最常用的是easy.py和grid.py。<br>
+<strong>8.1 grid.py</strong><br>
+grid.py是对C-SVC的参数C和γ做优选的，原理也是网格遍历。<br>
+在Stack Overflow上有这样一段话：<br>
+>
+  As far as I know there is no script that does this, however I don't see why grid.py couldn't easily be extended to do so. However, I don't think its worth the effort.<br>
+  <br>
+  First of all, you need to choose your kernel. This is a parameter in itself. Each kernel has a different set of parameters, and will perform differently, so in order to compare kernels you will have to optimize each kernel's parameters.<br>
+  <br>
+  C, the cost parameter is an overall parameter that applies to SVM itself. The other parameters are all inputs to the kernel function. C controls the tradeoff between wide margin and more training points misclassified (but a model which may generalize better to future data) and a narrow margin which fits the training points better but may be overfitted to the training data.<br>
+  <br>
+  Generally, the two most widely used kernels are linear (which requires no parameters) and the RBF kernel.<br>
+  <br>
+  The RBF kernel takes the gamma parameter. This must be optimized, its value will significantly affect performance.<br>
+  <br>
+  If you are using the Polynomial kernel, d is the main parameter, you would optimize that. It doesn't make sense to modify the other parameters from the default unless you have some mathematical reason why doing so would better fit your data. In my experience the polynomial kernel can give good results, but a minuscule increase if any over the RBF kernel at a huge computational cost.<br>
+  <br>
+  Similar with the sigmoid kernel, gamma is your main parameter, optimize that and leave coef0 at the default, unless you have a good understanding of why this would better fit your data.<br>
+  <br>
+  So the reason why grid.py does not optimize other parameters is because in most cases its simply unnecessary and generally won't result in an improvement in performance. As for your second question: No, this is not a case where optimizing one will optimize the other. The optimal values of these parameters are specific to your dataset. Changing the value of the kernel parameters will affect the optimal value of C. This is why a grid search is recommended. Adding these extra parameters to your search is going to significantly increase the time it will take and unlikely to give you an increase in classifier performance.<br>
+
+此外，在libSVM的官方README的部分摘要如下：<br>
+```
+Part II: Parameter Selection Tools
+
+Introduction
+============
+
+grid.py is a parameter selection tool for C-SVM classification using
+the RBF (radial basis function) kernel. It uses cross validation (CV)
+technique to estimate the accuracy of each parameter combination in
+the specified range and helps you to decide the best parameters for
+your problem.
+
+grid.py directly executes libsvm binaries (so no python binding is needed)
+for cross validation and then draw contour of CV accuracy using gnuplot.
+You must have libsvm and gnuplot installed before using it. The package
+gnuplot is available at http://www.gnuplot.info/
+
+Usage: grid.py [-log2c begin,end,step] [-log2g begin,end,step] [-v fold]
+       [-svmtrain pathname] [-gnuplot pathname] [-out pathname] [-png pathname]
+       [additional parameters for svm-train] dataset
+
+The program conducts v-fold cross validation using parameter C (and gamma)
+= 2^begin, 2^(begin+step), ..., 2^end.
+
+You can specify where the libsvm executable and gnuplot are using the
+-svmtrain and -gnuplot parameters.
+
+For windows users, please use pgnuplot.exe. If you are using gnuplot
+3.7.1, please upgrade to version 3.7.3 or higher. The version 3.7.1
+has a bug. If you use cygwin on windows, please use gunplot-x11.
+
+Example
+=======
+
+> python grid.py -log2c -5,5,1 -log2g -4,0,1 -v 5 -m 300 heart_scale
+
+Users (in particular MS Windows users) may need to specify the path of
+executable files. You can either change paths in the beginning of
+grid.py or specify them in the command line. For example,
+
+> grid.py -log2c -5,5,1 -svmtrain "c:\Program Files\libsvm\windows\svm-train.exe" -gnuplot c:\tmp\gnuplot\binary\pgnuplot.exe -v 10 heart_scale
+
+Output: two files
+dataset.png: the CV accuracy contour plot generated by gnuplot
+dataset.out: the CV accuracy at each (log2(C),log2(gamma))
+
+Parallel grid search
+====================
+
+You can conduct a parallel grid search by dispatching jobs to a
+cluster of computers which share the same file system. First, you add
+machine names in grid.py:
+
+ssh_workers = ["linux1", "linux5", "linux5"]
+
+and then setup your ssh so that the authentication works without
+asking a password.
+
+The same machine (e.g., linux5 here) can be listed more than once if
+it has multiple CPUs or has more RAM. If the local machine is the
+best, you can also enlarge the nr_local_worker. For example:
+
+nr_local_worker = 2
+
+Example:
+
+> python grid.py heart_scale
+[local] -1 -1 78.8889  (best c=0.5, g=0.5, rate=78.8889)
+[linux5] -1 -7 83.3333  (best c=0.5, g=0.0078125, rate=83.3333)
+[linux5] 5 -1 77.037  (best c=0.5, g=0.0078125, rate=83.3333)
+[linux1] 5 -7 83.3333  (best c=0.5, g=0.0078125, rate=83.3333)
+.
+.
+.
+
+If -log2c, -log2g, or -v is not specified, default values are used.
+
+If your system uses telnet instead of ssh, you list the computer names
+in telnet_workers.
+```
+grid.py运行完以后，你可以把最优参数输入到svmtrain中进行训练了。<br>
+
+<strong>8.2 easy.py</strong><br>
+文件easy.py对样本文件做了“一条龙服务”，从参数优选，到文件预测。因此，其对grid.py、svm-train、svm-scale和svm-predict都进行了调用（当然还有必须的python和gnuplot）。因此，运行easy.py需要保证这些文件的路径都要正确。当然还需要样本文件和预测文件。<br>
+
 
 
 --------------------------------
