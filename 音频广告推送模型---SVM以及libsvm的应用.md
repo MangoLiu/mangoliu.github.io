@@ -126,12 +126,13 @@ model_file：可选项，为要保存的结果文件，称为模型文件，以�
 前三个是分类的，后两个是回归的。<br>
 c-svc和 nu-svc本质差不多,c-svc中c的范围是1到正无穷;<br>
 nu-svc中nu的范围是0到1，还有nu是错分样本所占比例的上界，支持向量所占比列的下界。<br>
-在libsvm中，不同的svm类型意味着不同的模型优化函数和不同的决策函数。<br>
+在libsvm中，不同的svm类型意味着不同的模型优化函数和不同的决策函数。主要展示C-SVC和nu-SVC<br>
 ![C-SVC](/images/C-SVC.png)
 ![V-SVC](/images/V-SVC.png)
-![one-class SVM](/images/one-class SVM.png)
-![epsilon-SVR](/images/epsilon-SVR.png)
-![V-SVR](/images/V-SVR.png)<br><br>
+其余三种见：
+[one-class SVM](/images/one-class SVM.png)
+[epsilon-SVR](/images/epsilon-SVR.png)
+[V-SVR](/images/V-SVR.png)<br><br>
 
 <strong>6 核函数</strong><br>
 核函数的目的就是在非线性可分的情况下，通过一个映射函数，将低维的输入空间映射到高维的特征空间。<br>
