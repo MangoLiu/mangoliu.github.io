@@ -130,8 +130,8 @@ nu-svc中nu的范围是0到1，还有nu是错分样本所占比例的上界，�
 ![C-SVC](/images/C-SVC.png)
 ![V-SVC](/images/V-SVC.png)
 其余三种见：
-[one-class SVM](/images/one-class SVM.png)
-[epsilon-SVR](/images/epsilon-SVR.png)
+[one-class SVM](/images/one-class SVM.png),
+[epsilon-SVR](/images/epsilon-SVR.png),
 [V-SVR](/images/V-SVR.png)<br><br>
 
 <strong>6 核函数</strong><br>
