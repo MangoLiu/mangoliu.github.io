@@ -27,10 +27,10 @@ svm_train t = new svm_train();
 svm_predict p = new svm_predict();
 
 try {
-	t.main(arg);
-	p.main(parg);
+  t.main(arg);
+  p.main(parg);
 } catch (Exception e) {
-	e.printStackTrace();
+  e.printStackTrace();
 }
 ```
 <br>
@@ -141,7 +141,7 @@ nu-svc中nu的范围是0到1，还有nu是错分样本所占比例的上界，�
 目前常用的核函数有如下4种：<br>
 ![4_kernels](/images/kernel_four.png)<br>
 其中，RBF核函数是一个应用较为广泛的核函数，通过参数的选择，它可以使用于任意分布的样本。<br>
-RBF含有两个参数误差惩罚参数C和高斯核参数γ。其中两者对错误率的影响如下：<br>
+RBF含有两个参数误差惩罚参数C和高斯核参数γ。它不局限于这一种形式，||x-y||^2是恒定的（毕竟核技术的目的是使用原属性计算变换后的空间中的相似度的一种方法），其余的可变，表示函数值跌落到0的速度参数。其中两者对错误率的影响如下：<br>
 ![C&R](/images/C&R.png)<br>
 因此，对于一个基于RBF核函数的SVM，其性能是由参数(C,γ)决定。<br>
 <br>
