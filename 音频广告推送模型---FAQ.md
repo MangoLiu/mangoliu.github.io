@@ -9,6 +9,8 @@
 
 <strong>3 Q:使用了哪些维度属性？<br></strong>
 <strong>A:</strong>时间(event_hour),省份(event_province),城市(event_city),四端(terminal_type),歌曲(song_id),歌手(singer_name),设备(device_model),专辑(album_id)<br>
+<strong>New A:</strong>age,area,emotion,gender,hot,language,rhythm,scene,style<br>
+
 
 <strong>4 Q:本地程序读取文本时，乱码问题。<br></strong>
 <strong>A:</strong>notepad++可以直接进行格式转换为ASNI。也可以直接在服务器端下载时进行转换。<br>
@@ -73,8 +75,25 @@
 ```
 <br>
 
-<strong>Q:</strong><br>
-<strong>A:</strong><br>
+<strong>17 Q:如何通过大数据部的厄里斯魔镜接口调用用户的属性？</strong><br>
+<strong>A:</strong>./query_id_client kUserId < id_file.txt > result.txt<br>
+按照wiki在服务器端获取工具，调用工具。
+其中id_file.txt中包括用户id，每一行仅仅包含一个id.<br>
+
+<strong>18 Q:libsvm 是如何进行交叉验证的？</strong><br>
+<strong>A:</strong>利用参数-v n。<br>
+n就是要拆成几组，例如n=3就会拆成3组，然后先拿1跟2来train model并predict 3以得到正确率；再来拿3和1train，predict 2 ，最后1,3train，并predict 2 。然后取平均值。<br>
+
+<strong>19 Q:如何在本地向github提交文件？</strong><br>
+<strong>A:</strong>下载本地客户端，clone 项目到本地。修改之后，在项目上右键打开shell：<br>
+git add .<br>
+git commit -m "注释"<br>
+git push <br>
+更新如下：在项目上右键打开shell，git pull<br>
+
 
 --------------------------------
 ######（转载本站文章请注明作者和出处 <a href="https://github.com/MangoLiu">MangoLiu</a> ，请勿用于任何商业用途）
+
+
+
