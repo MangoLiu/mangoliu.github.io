@@ -9,6 +9,8 @@
 
 <strong>3 Q:使用了哪些维度属性？<br></strong>
 <strong>A:</strong>时间(event_hour),省份(event_province),城市(event_city),四端(terminal_type),歌曲(song_id),歌手(singer_name),设备(device_model),专辑(album_id)<br>
+<strong>New A:</strong>age,area,emotion,gender,hot,language,rhythm,scene,style<br>
+
 
 <strong>4 Q:本地程序读取文本时，乱码问题。<br></strong>
 <strong>A:</strong>notepad++可以直接进行格式转换为ASNI。也可以直接在服务器端下载时进行转换。<br>
