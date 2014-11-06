@@ -91,9 +91,16 @@ git commit -m "注释"<br>
 git push <br>
 更新如下：在项目上右键打开shell，git pull<br>
 
+<strong>20 Q:用户特征识别模块的性能怎样？</strong><br>
+<strong>A:</strong>在需要播放广告的时机请求该接口，可适当提前预加载。两端每日播放量6000W（4800w+1200w），按平均N首歌播放一次广告计算，预估接口访问量6000w/N。峰值1500qps（这是由web端RD估计出来的）。<br>
+
+<strong>21 Q:若是计算出来的用户特征中0非常多或是全0，导致广告根本不好处理，怎样处理？</strong><br>
+<strong>A:</strong>后续添加策略。<br>
+
 
 --------------------------------
 ######（转载本站文章请注明作者和出处 <a href="https://github.com/MangoLiu">MangoLiu</a> ，请勿用于任何商业用途）
 
 
 
+http://pan.baidu.com/s/1mgmiBpA
