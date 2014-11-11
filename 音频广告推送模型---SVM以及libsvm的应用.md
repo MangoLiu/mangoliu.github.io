@@ -150,6 +150,15 @@ RBF含有两个参数误差惩罚参数C和高斯核参数γ。它不局限于�
 6.2 一般会用交叉验证选一个核函数。<br>
 6.3 关于映射，再多说一些。一些的图，因子CMU的知乎网友(王赟 Maigo)的例子：<br>
 下面这张图位于第一、二象限内。我们关注红色的门，以及“北京四合院”这几个字下面的紫色的字母。我们把红色的门上的点看成是“+”数据，紫色字母上的点看成是“-”数据，它们的横、纵坐标是两个特征。显然，在这个二维空间内，“+”“-”两类数据不是线性可分的。<br>
+6.4 一些选择核时的建议：<br>
+(1) 直接将训练集合和测试集合简单归一化到[0,1]区间，可能导致实验结果很差。<br>
+(2) 如果样本的特征数非常多，那么就不必使用RBF核将样本映射到高维空间。<br>
+    a) 在特征数非常多的情况下，使用线性核，结果已经非常好，并且只需要选择参数C即可。<br>
+    b) 虽然说RBF核的结果至少比线性核好，前提下搜索整个的空间。<br>
+(3) 样本数<<特征数的情况：<br>
+    a) 推荐使用线性核，可以达到与RBF同样的性能。<br>
+(4) 样本数和特征数都非常多：推荐使用liblinear，更少的时间和内存，可比的准确率。<br>
+(5) 样本数>>特征数：如果想使用线性模型，可以使用liblinear，并且使用-s 2参数<br>
 ![SVM_map1](/images/SVM_map1.png)<br>
 使用P(x,y)=(x^2,√2xy,y^2)。在P这个映射下，原来二维空间中的图在三维空间中的像是这个样子：<br>
 ![SVM_map2](/images/SVM_map2.png)<br>
@@ -252,21 +261,21 @@ If -log2c, -log2g, or -v is not specified, default values are used.
 If your system uses telnet instead of ssh, you list the computer names
 in telnet_workers.
 ```
-*为了运行grid.py需要安装Python，并在path环境变量中进行添加路径。以及绘图工具gnuplot。
-*找到grid.py文件。用python打开（不能双击，而要右键选择“Edit with IDLE”），修改svmtrain_exe和gnuplot_exe的路径。
+* 为了运行grid.py需要安装Python，并在path环境变量中进行添加路径。以及绘图工具gnuplot。
+* 找到grid.py文件。用python打开（不能双击，而要右键选择“Edit with IDLE”），修改svmtrain_exe和gnuplot_exe的路径。
 ```python
 svmtrain_exe = r"D:\libSVM\program\svm-train.exe"
 gnuplot_exe = r"D:\libSVM\gnuplot\pgnuplot.exe"
 ```
-*运行cmd，进入dos环境，定位到grid.py的地方。
+* 运行cmd，进入dos环境，定位到grid.py的地方。
 python grid.py heart_scale
 你就会看到dos窗口中飞速乱串的[local]数据，以及一个gnuplot的动态绘图窗口。大约过10秒钟，就会停止。直接看最后一行：
 2048.0 0.0001220703125 84.0741
 其意义表示：C = 2048.0；γ=0.0001220703125；交叉验证精度CV Rate = 84.0741%，这就是最优结果。
 
-*打开目录tools，我们可以看到新生成了两个文件：heart_scale.out和heart_scale.png，第一个文件就是搜索过程中的[local]和最优数据，第二文件就是gnuplot图像。
+* 打开目录tools，我们可以看到新生成了两个文件：heart_scale.out和heart_scale.png，第一个文件就是搜索过程中的[local]和最优数据，第二文件就是gnuplot图像。
 
-*grid.py运行完以后，你可以把最优参数输入到svmtrain中进行训练了。<br>
+* grid.py运行完以后，你可以把最优参数输入到svmtrain中进行训练了。<br>
 
 <strong>8.2 easy.py</strong><br>
 文件easy.py对样本文件做了“一条龙服务”，从参数优选，到文件预测。因此，其对grid.py、svm-train、svm-scale和svm-predict都进行了调用（当然还有必须的python和gnuplot）。因此，运行easy.py需要保证这些文件的路径都要正确。当然还需要样本文件和预测文件。<br>

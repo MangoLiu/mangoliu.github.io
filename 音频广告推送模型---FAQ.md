@@ -97,10 +97,16 @@ git push <br>
 <strong>21 Q:若是计算出来的用户特征中0非常多或是全0，导致广告根本不好处理，怎样处理？</strong><br>
 <strong>A:</strong>后续添加策略。<br>
 
+<strong>22 Q:解析json</strong><br>
+<strong>A:</strong>下载json相关jar包，在项目上通过添加外部jar方式导入<br>
+
+
+
+
+
 
 --------------------------------
 ######（转载本站文章请注明作者和出处 <a href="https://github.com/MangoLiu">MangoLiu</a> ，请勿用于任何商业用途）
 
 
 
-http://pan.baidu.com/s/1mgmiBpA
