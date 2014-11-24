@@ -31,3 +31,30 @@ if __name__ == "__main__":
 ```
 首先，if表达式无需使用圆括号括起来。其次,if语句以冒号结束，紧跟其后的是缩进代码。<br><br>
 ### 第二天 内置数据类型
+1 Dictionary<br>
+Dictionary是Python的内置数据类型之一，它定义了键和值之间一对一的关系。很像像Java中的 Hashtable类的实例。Dictionary没有元素顺序的概念。并且dictionary的key是大小写敏感的。 <br>
+```python
+>>> d = {"server":"mpilgrim", "database":"master"} 
+>>> d
+{'server': 'mpilgrim', 'database': 'master'}
+>>> d["server"]
+'mpilgrim'
+```
+
+删除元素：<br>
+d.clear():清空元素。<br>
+del d[key]:删除独立元素。<br>
+
+大括号扩起来，逗号分隔，方括号获取。<br>
+
+2 List<br>
+它更像是java中的ArrayList类，它可以保存任意对象，并且可以在增加新元素时动态扩展。<br>
+```python
+>>> li = ["a", "b", "mpilgrim", "z", "example"]
+>>> li
+['a', 'b', 'mpilgrim', 'z', 'example']
+```
+
+负数索引从list的尾部开始向前计数来存取元素,可以这样理解： li[-n] == li[len(li) - n]。<br>
+list的分片：<br>
+list[begin:end]（包括begin,不包括end）<br>
