@@ -2,7 +2,7 @@
 写在前面：学习Python其实没啥功利性的目的，之前有几次同事问我会不会用Python帮忙处理下问题。我回答：不会。感觉不是很好，平时复杂一些的程序用java来写，也学习AWK&sed来处理一些文本。
 <br>
 多学一点也没啥坏处，给自己的工具箱里也多添一件工具。
-按照《Dive Into Python》来做下笔记，有的地方写了自己的一些看法，方便自己后续的复习。
+目的是让有java基础的人，可以快速使用Python。
 
 ### 第一天 第一个Python程序
 1 函数声明<br>
@@ -125,7 +125,7 @@ pop 是一个有趣的东西。它会做两件事：删除list的最后一个元
 
 Lists也可以用+运算符连接起来。list= list+otherlist相当于list.extend(otherlist)。但+运算符把一个新(连接后)的list作为值返回， 而extend只修改存在的list。也就是说，对于大型 list来说，extend的执行速度要快一些。<br>
 （有点像java中的String拼接和StringBuffer的append方法）<br>
-* 运算符可以作为一个重复器作用于list。 <br>
+"*"运算符可以作为一个重复器作用于list。 <br>
 
 3 Tuple介绍<br>
 Tuple是不可变的list。定义tuple与定义list的方式相同，但整个元素集是用小括号包围的，而不是方括号。与list一样分片(slice)也可以使用。注意当分割一个list时，会得到一个
@@ -195,3 +195,5 @@ join只能用于元素是字符串的list；它不进行任何的强制类型转
 >>> s.split(";") 
 ['server=mpilgrim', 'uid=sa', 'database=master', 'pwd=secret']
 ```
+### 第三天 自省的威力
+恩，你有更好的求助资源，我的智囊团钱庄同学啊。。。
