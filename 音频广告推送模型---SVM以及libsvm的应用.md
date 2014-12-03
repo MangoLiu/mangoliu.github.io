@@ -11,6 +11,11 @@
 ##libSVM
 本文主要讲[libsvm(百度百科)](http://baike.baidu.com/view/598089.htm?fr=aladdin)的学习和项目的中的实际应用。<br>
 
+<strong>0 写在前面</strong><br>
+为什么在众多超平面的选在距离支持向量最大的那个最有超平面？<br>
+这是基于结构风险最小化原则，即是由有限训练样本得到的决策规则对独立的测试集仍能得到小的误差。尽量提高学习机的泛化能力。<br>
+
+
 <strong>1 下载libsvm，引入java包。</strong><br>
 libsvm主要有5个文件夹：
 Java:主要是应用于java平台；<br>
@@ -166,6 +171,7 @@ RBF含有两个参数误差惩罚参数C和高斯核参数γ。它不局限于�
 而三维中的这个判决边界，再映射回二维空间中是这样的：<br>
 ![SVM_map3](/images/SVM_map3.png)<br>
 <br>
+
 <strong>7 参数调优原理</strong><br>
 由于选取不同的C和γ就会得到不同SVM，常用的参数寻优方式如下：<br>
 <strong>7.1 双线性搜索法</strong><br>
@@ -176,6 +182,7 @@ RBF含有两个参数误差惩罚参数C和高斯核参数γ。它不局限于�
 将C和γ分别取M个值和N个值，对M*N个组合，分别进行训练不同的SVM，再估计其学习精度，从而在M*N个组合中得到最高的一个组合作为最有参数。<br>
 由上可知，网格法具有较高的学习精度，但是计算量大。而双线性法计算量小，但和网格法相比，学习精度较低。<br>
 <br>
+
 <strong>8 参数调优应用</strong><br>
 在libSVM的tools文件夹里面包含了4个Python文件，是用来对参数优选的。其中最常用的是easy.py和grid.py。<br>
 <strong>8.1 grid.py</strong><br>
