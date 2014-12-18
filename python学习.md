@@ -1,10 +1,90 @@
 #python学习入门
-写在前面：学习Python其实没啥功利性的目的，之前有几次同事问我会不会用Python帮忙处理下问题。我回答：不会。感觉不是很好，平时复杂一些的程序用java来写，也学习AWK&sed来处理一些文本。
+写在前面：给自己的工具箱里也多添一件工具没啥坏处。
+目的是让有java、c++基础的人，可以快速使用Python(相同部分不再赘述)。
+### 一、基础 
+* 在计算机内部，Python解释器把源代码转换成称为字节码的中间形式，然后再把它翻译成计算机使用的机器语言并运行。
 <br>
-多学一点也没啥坏处，给自己的工具箱里也多添一件工具。
-目的是让有java基础的人，可以快速使用Python。
 
-### 第一天 第一个Python程序
+* 我们将看一下如何用Python编写运行一个传统的“Hello World”程序。通过它，你将学会如何编写、保存和运行Python程序。源文件：<br>
+```
+#!/usr/bin/python
+# Filename : helloworld.py
+print 'Hello World'
+```
+运行及输出：<br>
+```
+$ python helloworld.py
+Hello World
+```
+
+* 注意Python是大小写敏感的. <br>
+
+* 任何在#符号右面的内容都是注释。<br>
+
+* Python是大小写敏感的。<br>
+
+* help(str)会显示str类的帮助。按q退出帮助。<br>
+
+* 在Python中有4种类型的数——整数、长整数、浮点数(如52.3E-4)和复数(如(-5+4j)。<br>
+
+* 你可以用单引号指示字符串.在双引号中的字符串与单引号中的字符串的使用完全相同。利用三引号，你可以指示一个多行的字符串。行末的单独一个反斜杠表示字符串在下一行继续，而不是开始一个新的行。如果你想要指示某些不需要如转义符那样的特别处理的字符串，那么你需要指定一个自然字符串。自然字符串通过给字符串加上前缀r或R来指定。Python允许你处理Unicode文本——你只需要在字符串前加上前缀u或U。<br>
+
+* 如果你把两个字符串按字面意义相邻放着，他们会被Python自动级连。<br>
+
+* 在Python中没有专门的char数据类型。<br>
+
+* 变量第一个字符必须是字母表中的字母（大写或小写）或者一个下划线。其他部分可以由字母（大写或小写）、下划线或数字组成。并且对大小写敏感的。<br>
+
+* 使用变量时只需要给它们赋一个值。不需要声明或定义数据类型。<br>
+
+*　空白在Python中是重要的。事实上行首的空白是重要的。它称为缩进。同一层次的语句必须有相同的缩进。每一组这样的语句称为一个块。不要混合使用制表符和空格来缩进，因为这在跨越不同的平台的时候，无法正常工作。强烈建议在每个缩进层次使用单个制表符或两个或四个空格。
+选择这三种缩进风格之一。更加重要的是，选择一种风格，然后一贯地使用它，即只使用这一种风格。<br>
+
+* **:代表幂运算符。//:取整除,返回商的整数部分。not,and,or分别代表布尔非，与，或。<br>
+
+* if语句:<br>
+```python
+if guess == number:
+    print '1'
+elif guess < number:
+    print '2'
+else:
+    print '3' 
+```
+注意:elif，没有括号，以及有冒号。<br>
+
+* 在Python中没有switch语句。<br>
+
+* while语句：<br>
+```python
+while running:
+	....
+else
+	....
+```
+你可以在while循环中使用一个else从句，但else块事实上是多余的。<br>
+
+* for语句:
+```python
+for i in range(1, 5):
+    print i
+else:
+    print 'The for loop is over'
+```
+for也可以使用一个else从句。<br>
+注意:range(1,5)给出序列[1, 2, 3, 4]。默认地，range的步长为1。如果我们为range提供第三个数，那么它将成为步长。例如，range(1,5,2)给出[1,3]。记住，range 向上 延伸到第二个数，即它不包含第二个数。<br>
+
+* True和False被称为布尔类型。<br>
+
+* 输入字符串的长度通过内建的len函数取得。<br>
+
+* while和for中可以使用break和continue语句。<br>
+
+* 
+
+### 一
+
+
 1 函数声明<br>
 def buildConnectionString(params):<br>
 函数没有定义返回的数据类型，Python不需要指定返回值的数据类型；甚至不需要指定是否有返回值。<br><br>
@@ -30,7 +110,7 @@ Python使用硬回车来分割语句，冒号和缩进来分割代码块。C++�
 if __name__ == "__main__":
 ```
 首先，if表达式无需使用圆括号括起来。其次,if语句以冒号结束，紧跟其后的是缩进代码。<br><br>
-### 第二天 内置数据类型
+### 二
 1 Dictionary<br>
 Dictionary是Python的内置数据类型之一，它定义了键和值之间一对一的关系。很像像Java中的 Hashtable类的实例。Dictionary没有元素顺序的概念。并且dictionary的key是大小写敏感的。 <br>
 ```python
@@ -195,5 +275,8 @@ join只能用于元素是字符串的list；它不进行任何的强制类型转
 >>> s.split(";") 
 ['server=mpilgrim', 'uid=sa', 'database=master', 'pwd=secret']
 ```
-### 第三天 自省的威力
-进行训练
+### 三
+
+
+参考资料:
+[简明Python教程](http://woodpecker.org.cn/abyteofpython_cn/chinese/index.html)<br>
