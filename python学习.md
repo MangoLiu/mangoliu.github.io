@@ -73,14 +73,43 @@ else:
 ```
 for也可以使用一个else从句。<br>
 注意:range(1,5)给出序列[1, 2, 3, 4]。默认地，range的步长为1。如果我们为range提供第三个数，那么它将成为步长。例如，range(1,5,2)给出[1,3]。记住，range 向上 延伸到第二个数，即它不包含第二个数。<br>
+while和for中可以使用break和continue语句。<br>
 
 * True和False被称为布尔类型。<br>
 
 * 输入字符串的长度通过内建的len函数取得。<br>
 
-* while和for中可以使用break和continue语句。<br>
+* 函数声明：<br>
+```python
+def sayHello():
+    print 'Hello World!'
+```
+函数没有定义返回的数据类型，Python不需要指定返回值的数据类型；甚至不需要指定是否有返回值。<br>
+
+* 通过global语句，可以为定义在函数外的变量赋值的。<br>
+```python
+global x
+```
+
+* 使用默认参数值：
+```python
+def say(message, times = 1):
+    print message * times
+
+say('Hello')
+say('World', 5)
+```
+输出：<br>
+```python
+$ python func_default.py
+Hello
+WorldWorldWorldWorldWorld
+```
+注：Python中，字符串*整数N，会将这个字符串拼接N遍。<br>
 
 * 
+
+
 
 ### 一
 
