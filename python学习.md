@@ -1,6 +1,7 @@
 #python学习入门
 写在前面：给自己的工具箱里也多添一件工具没啥坏处。
 目的是让有java、c++基础的人，可以快速使用Python(相同部分不再赘述)。
+
 ### 一、基础 
 * 在计算机内部，Python解释器把源代码转换成称为字节码的中间形式，然后再把它翻译成计算机使用的机器语言并运行。
 <br>
@@ -26,6 +27,9 @@ Hello World
 * help(str)会显示str类的帮助。按q退出帮助。<br>
 
 * 在Python中有4种类型的数——整数、长整数、浮点数(如52.3E-4)和复数(如(-5+4j)。<br>
+
+* 在Java、C++ 和其他静态类型语言中，必须要指定函数返回值和每个函数参数的数据类型。在Python中，永远也不需要明确指定任何东西的数据类型。
+Python会根据赋给它的值在内部将其数据类型记录下来。<br>
 
 * 你可以用单引号指示字符串.在双引号中的字符串与单引号中的字符串的使用完全相同。利用三引号，你可以指示一个多行的字符串。行末的单独一个反斜杠表示字符串在下一行继续，而不是开始一个新的行。如果你想要指示某些不需要如转义符那样的特别处理的字符串，那么你需要指定一个自然字符串。自然字符串通过给字符串加上前缀r或R来指定。Python允许你处理Unicode文本——你只需要在字符串前加上前缀u或U。<br>
 
@@ -107,39 +111,68 @@ WorldWorldWorldWorldWorld
 ```
 注：Python中，字符串*整数N，会将这个字符串拼接N遍。<br>
 
-* 
+* 关键参数<br>
+如果你的某个函数有许多参数，而你只想指定其中的一部分，那么你可以通过命名来为这些参数赋值——这被称作关键参数——我们使用名字而不是位置来给函数指定实参。
+这样做有两个优势:一，由于我们不必担心参数的顺序，使用函数变得更加简单了。二、假设其他参数都有默认值，我们可以只给我们想要的那些参数赋值。
 
-
-
-### 一
-
-
-1 函数声明<br>
-def buildConnectionString(params):<br>
-函数没有定义返回的数据类型，Python不需要指定返回值的数据类型；甚至不需要指定是否有返回值。<br><br>
-2 类型指定<br>
-在Java、C++ 和其他静态类型语言中，必须要指定函数返回值和每个函数参数的数据类型。在Python中，永远也不需要明确指定任何东西的数据类型。
-Python会根据赋给它的值在内部将其数据类型记录下来。<br><br>
-3 文档化函数<br>
 ```python
-def buildConnectionString(params):
-"""Build a connection string from a dictionary of parameters.
+def func(a, b=5, c=10):
+    print 'a is', a, 'and b is', b, 'and c is', c
 
-Returns string."""
+func(3, 7)
+func(25, c=24)
+func(c=50, a=100)
 ```
-三重引号表示一个多行字符串。在开始与结束引号间的所有东西都被视为单个字符串的一部分，包括硬回车和其它的引号字符。您可以在任何地方使用它们，但是您可能会发现，它们经常被用于定义doc string。它们用来说明函数可以做什么。如果存在doc string，它必须是一个函数要定义的第一个内容(也就是说，在冒号后面的第一个内容)。<br><br>
-4 使用模块的方法<br>
-当使用在被导入模块中定义的函数时，必须包含模块的名字。（类似于使用java类的static方法）<br><br>
-5 python对象<br>
-在 Python 中，定义是松散的;某些对象既没有属性也没有方法。但是万物皆对象从感性上可以解释为：一切都可以赋值给变量或作为参数传递给函数。在Python中万物皆对象。<br><br>
-6 代码缩进<br>
-Python使用硬回车来分割语句，冒号和缩进来分割代码块。C++和Java使用分号来分割语句,花括号来分割代码块。<br><br>
-7 if语句<br>
+输出：<br>
+```
+$ python func_key.py
+a is 3 and b is 7 and c is 10
+a is 25 and b is 5 and c is 24
+a is 100 and b is 5 and c is 50
+```
+
+* 没有返回值的return语句等价于return None。None是Python中表示没有任何东西的特殊类型。<br>
+
+* pass语句在Python中表示一个空的语句块。(等同于java中的单独分号。)<br>
+
+* 文档字符串：<br>
+三重引号表示一个多行字符串。在开始与结束引号间的所有东西都被视为单个字符串的一部分，包括硬回车和其它的引号字符。您可以在任何地方使用它们，但是您可能会发现，它们经常被用于定义doc string。它们用来说明函数可以做什么。如果存在doc string，它必须是一个函数要定义的第一个内容(也就是说，在冒号后面的第一个内容)。<br>
+之前的help()所做的只是抓取函数的__doc__属性。
+，你也可以通过functionname._doc_ 来进行调用。<br>
+
+* 引入模块：import 模块名<br>
+输入一个模块相对来说是一个比较费时的事情，所以通过引入创建以.pyc作为扩展名的字节编译的文件会更快一些。另外，这些字节编译的文件也是与平台无关的。<br>
+<br>
+如果你想要直接输入argv变量到你的程序中（避免在每次使用它时打sys.），那么你可以使用from sys import argv语句。如果你想要输入所有sys模块使用的名字，那么你可以使用from sys import *语句。这对于所有模块都适用。一般说来，应该避免使用from..import而使用import语句，因为这样可以使你的程序更加易读，也可以避免名称的冲突。<br>
+记住这个模块应该被放置在我们输入它的程序的同一个目录中，或者在sys.path所列目录之一。<br>
+
+* 每个模块都有一个名称，在模块中可以通过语句来找出模块的名称。可以通过模块的__name__属性完成。每个Python模块都有它的__name__，如果它是'__main__'，这说明这个模块被用户单独运行.
 ```python
-if __name__ == "__main__":
+#!/usr/bin/python
+# Filename: using_name.py
+
+if __name__ == '__main__':
+    print 'This program is being run by itself'
+else:
+    print 'I am being imported from another module'
 ```
-首先，if表达式无需使用圆括号括起来。其次,if语句以冒号结束，紧跟其后的是缩进代码。<br><br>
-### 二
+运行：<br>
+```
+$ python using_name.py
+This program is being run by itself
+
+$ python
+>>> import using_name
+I am being imported from another module
+>>>
+```
+
+* 你可以使用内建的dir函数来列出模块定义的标识符。标识符有函数、类和变量。
+当你为dir()提供一个模块名的时候，它返回模块定义的名称列表。
+
+* del用来删除一个变量/名称。例如del a，你将无法再使用变量a——它就好像从来没有存在过一样。<br>
+
+### 二、数据结构
 1 Dictionary<br>
 Dictionary是Python的内置数据类型之一，它定义了键和值之间一对一的关系。很像像Java中的 Hashtable类的实例。Dictionary没有元素顺序的概念。并且dictionary的key是大小写敏感的。 <br>
 ```python
