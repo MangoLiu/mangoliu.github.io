@@ -559,16 +559,9 @@ except:
 
 print 'Done'
 ```
-
-
-
-
-
-
-
-
+若是希望无论异常发生与否的情况下都都可以执行某些功能，这可以使用finally块来完成。
 
 参考资料:
 [简明Python教程](http://woodpecker.org.cn/abyteofpython_cn/chinese/index.html)<br>
-
+[Dive into python](http://woodpecker.org.cn/diveintopython/)
 
