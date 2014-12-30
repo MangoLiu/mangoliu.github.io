@@ -1,6 +1,6 @@
 #python学习入门
-写在前面：给自己的工具箱里也多添一件工具没啥坏处。
-目的是让有java、c++基础的人，可以快速使用Python(相同部分不再赘述)。
+写在前面：给自己的工具箱里也多添一件工具没啥坏处。<br>
+目的是让有java、c++基础的人，可以尽快的使用上Python基本功能(相同部分不再赘述)。
 
 ### 一、基础 
 * 在计算机内部，Python解释器把源代码转换成称为字节码的中间形式，然后再把它翻译成计算机使用的机器语言并运行。
@@ -561,7 +561,7 @@ print 'Done'
 ```
 若是希望无论异常发生与否的情况下都都可以执行某些功能，这可以使用finally块来完成。
 
-参考资料:
+参考资料:<br>
 [简明Python教程](http://woodpecker.org.cn/abyteofpython_cn/chinese/index.html)<br>
 [Dive into python](http://woodpecker.org.cn/diveintopython/)
 
