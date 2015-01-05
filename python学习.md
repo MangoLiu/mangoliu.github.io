@@ -164,6 +164,22 @@ I am being imported from another module
 
 * del用来删除一个变量/名称。例如del a，你将无法再使用变量a——它就好像从来没有存在过一样。<br>
 
+* 读写文件：<br>
+以一个例子说明，读取1.txt中的每一行，把其文本行的长度写在2.txt中。
+```python
+f =open("1.txt")
+w =open("2.txt","a")
+line = f.readline()
+
+while line:
+    w.write(str(len(line))+"\n")
+    line = f.readline()
+
+f.close()
+w.close()
+
+```
+
 ### 二、数据结构
 * 在Python中有三种内建的数据结构——列表、元组和字典。<br>
 
