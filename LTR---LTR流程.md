@@ -164,7 +164,63 @@ siterank是站点等级。
 
 ltrtools中的base_data可以理解成旧的数据，之前的数据。
 
-update_feature.py:
+参照ac_flow.cfg中的flow_all = update_feature, data_stat, ranktransform, mergeOptimizedObjectives, filtquery, filturl, train_ac, rankmodelranksvmmodel, testeval, wei_stat, staturl, addscore, analyse, showcase, cvtool, cvanalyse, cvshowcase, run_diff,  gen_report
+
+
+**update_feature.py**:
+在ac_flow.cfg中配置如下(部分)：
+```
+DATA_SET = data/ac/ac.final.data.dx_sample.1
+BASE_DATA_SET = data/ac/ac.final.data.dx_sample.0
+...
+tool_name = update_feature
+tool_addr = ./data_preprocess/update_feature.py
+config_file= ./conf/data_preprocess/update_feature.cfg
+new_data = %(DATA_SET)s
+base_data = %(BASE_DATA_SET)s
+out_data_update = data/ac/ac.final.data.dx
+out_data_base = data/ac/ac.final.data.dx
+delete_lost = true 
+
+```
+示例：更改DATA_SET，让它比BASE_DATA_SET，多了一列--url长度列（TEST_URL_LEN）。我们看看url长度模型的影响。<br>
+它将更新后的结果保存在ac.final.data.dx中
+
+我们需要修改config_file指示的配置文件：./conf/data_preprocess/update_feature.cfg，添加需要更新的项：<br>
+```
+TEST_URL_LEN = 0
+```
+这里的0代表默认值。<br>
+在update_feature.py文件中，会将需要更改的项保存在feat_change_list中。<br>
+```python
+feat_change_list = config.items('update_feature')[1:] 
+```
+然后就可以看到ac.final.data.dx中多了一列TEST_URL_LEN。<br>
+
+**data_stat**：<br>
+```
+TRANS_FILE = conf/ac/rerank.trans.lowquality_business_strike
+OUTPUT_DIR = data/output/
+...
+tool_name = data_stat
+tool_addr = data_analysis/data_stat.py
+trans_file = %(TRANS_FILE)s 
+feat_data = data/ac/ac.final.data.dx
+result = %(OUTPUT_DIR)sdata_stat.result 
+```
+可见这里处理的就是我们上面刚刚更新好的ac.final.data.dx文件。<br>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 =====2015-01-05日常学习记录-END=====
