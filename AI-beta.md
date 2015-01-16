@@ -13,7 +13,7 @@ PRank是一种pair-based算法，需要在O(m^2)pairs而不是O(m)。
 * RankBoost也是基于pairs来训练的，boosting也可以被视作一种梯度下降。
 
 --------------
-###《Learning to Rank for Information Retrieval》Tie-Yan Liu
+###《Learning to Rank Tutorial》Tie-Yan Liu
 inside search engine:<br>
 ![inside search engine](/images/jiqixuexi/LTR_ISE.png)<br>
 
