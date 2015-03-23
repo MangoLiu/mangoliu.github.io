@@ -60,6 +60,7 @@ Gm(x):x−>y
 ##GBDT
 --------------------------
 GBDT是一个应用很广泛的算法，可以用来做分类、回归。在很多的数据上都有不错的效果。
+回归是用拟合残差，分类是用错误率来调整样本权值。
    
 GBDT这个算法还有一些其他的名字，比如说MART(Multiple Additive Regression Tree)，GBRT(Gradient Boost Regression Tree)，TreeNet等，其实它们都是一个东西(参考自wikipedia – Gradient Boosting)
 
