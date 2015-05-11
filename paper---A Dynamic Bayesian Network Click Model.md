@@ -70,19 +70,19 @@ Ai: 在感知相关性上，用户是否被这个url吸引？<br>
 Si: 用户是否对着陆页上的内容满意？<br>
 
 给出了下面几天很重要的假设：<br>
-**Ai = 1,Ei = 1 <==> Ci = 1 **<br>
+<strong>Ai = 1,Ei = 1 <==> Ci = 1</strong><br>
 用户检查了并且感兴趣，那么就会点击。<br>
-P(Ai = 1) = au <br>
+<strong>P(Ai = 1) = au </strong><br>
 用户检查时，感兴趣的概率仅仅与url本身有关。<br>
-P(Si = 1|Ci = 1) = su<br>
+<strong>P(Si = 1|Ci = 1) = su</strong><br>
 用户点击一个结果，满意的概率就是su.<br>
-Ci = 0 ==> Si = 0<br>
+<strong>Ci = 0 ==> Si = 0</strong><br>
 若是没有点击，那么该条结果的满意度一定为0。<br>
-Si = 1 ==> Ei+1 = 0<br>
+<strong>Si = 1 ==> Ei+1 = 0</strong><br>
 若是用户对一个结果满意，那么是不会去点击下一条的。<br>
-P(Ei+1 = 1|Ei = 1, Si = 0) = γ <br>
+<strong>P(Ei+1 = 1|Ei = 1, Si = 0) = γ </strong><br>
 若是用户检查了某条结果，但是不满意，那么它检查下一条结果的概率为γ，γ刻画了用户对搜索引擎结果的容忍程度，即不满意当前继续往下看的概率。<br>
-Ei = 0 ==> Ei+1 = 0<br>
+<strong>Ei = 0 ==> Ei+1 = 0</strong><br>
 这是假定用户是自上而下浏览的，要是没有检查第i条，则是不会浏览i+1条的。<br>
 
 这里的model有两个变量：au,su。前者刻画了感知相关性，后者刻画了点击后的满意程度。<br>
