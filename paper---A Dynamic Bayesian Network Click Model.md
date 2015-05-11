@@ -3,9 +3,11 @@ Olivier Chapelle-Yahoo! Labs-Santa Clara, CA<br>
 Ya Zhang-Yahoo! Labs-Santa Clara, CA <br>
 
 ####ABSTRACT
+------------
 基于click log可以获得很多有用的信息，但相比于人工标注，它最大的难点在于position bias。即即便都相关，用户倾向于点击位置较高的的url。<br>
 
 ####1 INTRODUCTION
+------------
 人工标注的缺点：代价非常昂贵，并且label值可能会随着时间的变化而变化。<br>
 
 click的多种用途：调节搜索引擎的参数，评估不同的rank方法，或是作为ranking的反馈信息。<br>
@@ -27,7 +29,7 @@ DBN和cascade model的区别主要在两个方面：<br>
 2.在rank方法在学习过程中用作补充数据。(liu：用于评估)<br>
 
 ####2 MODELING PRESENTATION BIAS
-
+------------
 position model的核心假设是一条点击意味着这条url被用户检查并且认为它具有相关性。同时中各个被检查的概率仅仅与位置相关。这样的话，给定一个url u和位置 p，我们就可以预测它的点击率（其中E表示检查，C表示点击）：<br>
 ![pos model](/images/paper_dbn_pos1.png)<br>
 上面式子利用了下面如下的假设：<br>
@@ -39,12 +41,14 @@ position model的核心假设是一条点击意味着这条url被用户检查并
 想想我们工作的目标，利用click log评估url的相关程度。这不正是αu所表示的么，我们变化一下等式，P(C=1|u,p)这个是通过clicklog统计出来的，而βp就是我们之前所言的不同位置的检查概率，这是已知的，因此αu就可以计算了。<br>
 
 ####COEC model(clicks over expected clicks)
+------------
 βp我们可以简单的位置的点击率来估计，假设一个query有相关的N个session，第i个session中的点击与否为ci和位置的bias为βpi，此时，αu可以表示为：<br>
 ![pos model coec](/images/paper_dbn_coec.png)<br>
 
 COEC model的问题在于对于β的估计是有偏倚的。如果搜素引擎是对结果随机排序的话，那么这个模型是有效的。但是通常相关性较好的结果通常排名较高，这样此时计算出来的CTR(即点击率)不仅仅包含了位置的偏倚信息，同时还包含了该位置相关性的信息。<br>
 
 ####Examination model
+------------
 给定向量βp，对于αu的最大释然估计如下：<br>
 ![pos model max](/images/paper_dbn_max.png)<br>
 下标i表示session i对应的变量。<br>
@@ -52,6 +56,7 @@ COEC model的问题在于对于β的估计是有偏倚的。如果搜素引擎�
 这个模型的缺点是αu可能会大于1。<br>
 
 ####Logistic model
+------------
 ![logistic.png](/images/paper_dbn_logistic.png)<br>
 
 ####Cascade Model
@@ -61,6 +66,7 @@ COEC model的问题在于对于β的估计是有偏倚的。如果搜素引擎�
 ![logistic.png](/images/paper_dbn_cascade.png)<br>
 
 ####3 DYNAMIC BAYESIAN NETWORK
+------------
 DBN在点击日志中估计url的相关性时，把整个结果集当作一个整体，同时考虑各个结果之间的影响。<br>
 ![logistic.png](/images/paper_dbn_dbn.png)<br>
 框里定义的是session级别的变量；框外定义的是query级别的变量。<br>
@@ -92,12 +98,14 @@ ru :=P(Si = 1|Ei = 1)
 可以看出这个模型在建模实际相关程度，而非感知相关程度。<br>
 
 ####Link with other models
+------------
 examination model可以看作是上述model的特例，它的Ei是独立，仅与位置有关的model。<br>
 cascade model也是上述model的特例，γ = 1 and su = 1。用户会一直检查，直到看到满意的结果，点击，并离开。<br>
 
 skip-above pairs:若是用户点击没有点击i,而是点击了j，并且j>i。那么说明doc j好于doc i。<br>
 
 #### Inference
+------------
 注:这里涉及到很多模型比对的实验数据，不一一列出，有兴趣可以查询原paper。<br>
 DBN可以看作是一个稍稍复杂一点的隐性马尔科夫模型（HMM）。<br>
 
@@ -110,6 +118,7 @@ logistic model在position1 和position2之间有剧烈的抖动，原因是一�
 通常，DBN model好于cascade model和logisti model，但随着session的数据量的增大，差距逐渐减小。<br>
 
 ####CLICKS VS EDITORIAL JUDGMENTS
+------------
 使用点击数据和使用人工标注数据可能会有些偏颇差异，差异点主要源自一下两点：<br>
 1.点击强和相关性没有必然联系。<br>
 2.点击反映的是感知相关性，而人工标注更加关注的是真实相关性。
