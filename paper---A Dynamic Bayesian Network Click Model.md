@@ -4,7 +4,7 @@ Ya Zhang-Yahoo! Labs-Santa Clara, CA <br>
 
 ####ABSTRACT
 ------------
-基于click log可以获得很多有用的信息，但相比于人工标注，它最大的难点在于position bias。即即便都相关，用户倾向于点击位置较高的的url。<br>
+基于click log可以获得很多有用的信息，但相比于人工标注，它最大的难点在于position bias。即便都相关，用户倾向于点击位置较高的的url。<br>
 
 ####1 INTRODUCTION
 ------------
