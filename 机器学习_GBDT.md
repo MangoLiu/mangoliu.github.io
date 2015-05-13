@@ -1,7 +1,8 @@
 ##机器学习--AdaBoost和GBDT
 ###决策树、模型组合
 --------------------------------
-**决策树**这种算法有着很多良好的特性，比如说**训练时间复杂度较低，预测的过程比较快速，模型容易展示**（容易将得到的决策树做成图片展示出来）等。但是同时，单决策树又有一些不好的地方，比如说**容易over-fitting**，虽然有一些方法，如剪枝可以减少这种情况，但是还是不够的。
+**决策树**这种算法有着很多良好的特性，比如说**训练时间复杂度较低，预测的过程比较快速，模型容易展示**（容易将得到的决策树做成图片展示出来）等。但是同时，单决策树又有一些不好的地方，比如说**容易over-fitting**，虽然有一些方法，如剪枝可以减少这种情况，但是还是不够的。<br>
+之前决策树主要用于分类，而在GBDT中主要是把决策树用于回归，就是把分到某个分支上的所有训练样例的目标值求平均或是取中位数返回而已。
 
 **模型组合（比如说有Boosting，Bagging等）**与决策树相关的算法比较多，这些算法最终的结果是生成N(可能会有几百棵以上）棵树，这样可以大大的减少单决策树带来的毛病，虽然这几百棵决策树中的每一棵都很简单（相对于C4.5这种单决策树来说），但是他们组合起来确是很强大。
 
@@ -63,6 +64,14 @@ GBDT是一个应用很广泛的算法，可以用来做分类、回归。在很�
 回归是用拟合残差，分类是用错误率来调整样本权值。
    
 GBDT这个算法还有一些其他的名字，比如说MART(Multiple Additive Regression Tree)，GBRT(Gradient Boost Regression Tree)，TreeNet等，其实它们都是一个东西(参考自wikipedia – Gradient Boosting)
+
+GBDT的核心在于累加所有树的结果作为最终结果，而分类树的结果显然是没办法累加的，所以GBDT中的树都是回归树，不是分类树。
+
+GBDT的核心就在于，每一棵树学的是之前所有树结论和的残差，这个残差就是一个加预测值后能得真实值的累加量。
+
+Boosting的最大好处在于，每一步的残差计算其实变相地增大了分错instance的权重，而已经分对的instance则都趋向于0。
+
+GBDT几乎可用于所有回归问题（线性/非线性），相对logistic regression仅能用于线性回归，GBDT的适用面非常广。亦可用于二分类问题（设定阈值，大于阈值为正例，反之为负例）。
 
 Gradient Boost其实是一个框架，里面可以套入很多不同的算法。
 
@@ -129,8 +138,13 @@ gk<0时，越小，负得越多表示在这一维上的概率应该降低，比�
 
 -----
 wikipedia – Gradient Boosting)
-treeBoost论文
 [机器学习笔记3 - Boosting方法](http://blog.crackcell.com/posts/2013/04/30/machine_learning_note_3_boosting.html)
+[GBDT(Gradient Boosting Decision Tree) 没有实现只有原理](http://blog.csdn.net/dark_scope/article/details/24863289)
+[GBDT（MART） 迭代决策树入门教程 | 简介](http://blog.csdn.net/w28971023/article/details/8240756)
+[机器学习中的算法(1)-决策树模型组合之随机森林与GBDT](http://blog.csdn.net/macyang/article/details/38739715)
+[机器学习中的数学(3)-模型组合(Model Combining)之Boosting与Gradient Boosting](http://www.cnblogs.com/LeftNotEasy/archive/2011/01/02/machine-learning-boosting-and-gradient-boosting.html)
+[AdaBoost--从原理到实现](http://blog.csdn.net/dark_scope/article/details/14103983)
+
 
 --------------------------------
 ######(转载本站文章请注明作者和出处 <a href="https://github.com/MangoLiu">MangoLiu</a> ，请勿用于任何商业用途)
