@@ -15,8 +15,11 @@ ranking在信息检索应用中是一个很核心的问题。像是协同过过�
 ranking models.<br>
 relevance ranking就是从相关性角度计算出每一个doc和query之间的分值。早期的ranking model就是基于query-terms在doc中的出现次数来计算的。例如**Boolean model**就是预测doc相关与否，但它不能给出具体的度量值。<br>
 
-**Vector Space model (VSM)**将doc和query都表示成欧几里得空间下的向量形式，这样通过两个向量的内积即可计算出它们之间的相似度。<br>
+**Vector Space model (VSM)**将doc和query都表示成欧几里得空间下的向量形式，这样通过两个向量的内积即可计算出它们之间的相似度。注意，VSM模型的一个隐含假设是term之间彼此独立。<br>
 
+衡量指标IDF(t):<br>
+![lty_11](/images/liutieyan/lty_11.png)<br>
+其中N是这个term在整个文档集合中的总次数，n(t)是当前这个文档包含该term的次数。<br>
 
 
 
