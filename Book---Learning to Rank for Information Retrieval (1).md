@@ -21,6 +21,15 @@ relevance ranking就是从相关性角度计算出每一个doc和query之间的�
 ![lty_11](/images/liutieyan/lty_11.png)<br>
 其中N是这个term在整个文档集合中的总次数，n(t)是当前这个文档包含该term的次数。<br>
 
+**Singular Value Decomposition (奇异值分解，SVD)**将原始特征空间线性的转换到潜在语义空间，在这个空间中来定义query和doc之间的相关性。<br>
+
+**BM25**不是一个单独的model，而是一系列的ranking model，每一个model的不同的组成和参数。<br>
+![lty_12](/images/liutieyan/lty_12.png)<br>
+d表示doc，q表示query，q包含了M个term，TF(t,d)表示该term在该doc的频率，即该term数量/文档term总数量；LEN(d)表示文档的term数量，avdl表示相关文档集中平均文档长度，即term数量；k1和b是自由参数。<br>
+注：BM25大体表述了，一个doc包含某个term相对数越多，并且该doc越短，这个doc和这个term就越相关。k1和b可以理解为和term相关的参数，因为在一个query的不同term，权重、属性等是不同的。<br>
+
+
+
 
 
 
