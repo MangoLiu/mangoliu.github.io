@@ -28,6 +28,21 @@ relevance ranking就是从相关性角度计算出每一个doc和query之间的�
 d表示doc，q表示query，q包含了M个term，TF(t,d)表示该term在该doc的频率，即该term数量/文档term总数量；LEN(d)表示文档的term数量，avdl表示相关文档集中平均文档长度，即term数量；k1和b是自由参数。<br>
 注：BM25大体表述了，一个doc包含某个term相对数越多，并且该doc越短，这个doc和这个term就越相关。k1和b可以理解为和term相关的参数，因为在一个query的不同term，权重、属性等是不同的。<br>
 
+有些model的rank依据是他们自身的重要性，例如**PageRank**，PageRank的计算公式如下：<br>
+![lty_13](/images/liutieyan/lty_13.png)<br>
+其中dv是有链接指向du的page，U(dv)是dv页面中的链接的数目。<br>
+可以看出，一个page的value，取决于指向它的网页的权重，以及这个网页中的数量。它的含义是若是权重很大的网页指向了当前页，那么当前页的权重也可能很大，并且假设用户点击一个网页上的链接是随机均匀的。<br>
+
+相关性评估，后续会有三种方式：<br>
+1 Relevance degree（这也就是后续要提到的pointwise），对query和doc进行打分，打分可以有很多不同的形式，例如相关与否（1或0），或是相关的程度（Perfect, Excellent, Good, Fair, or Bad）等等。刻画query和doc间的相关性信息。<br>
+2 Pairwise preference，人工去判断在某个query下，一个doc和另一个doc谁更加相关，用来描述在两个doc之间的相对关系。刻画的是doc和doc之间的相对性关系。<br>
+3 Total order （这个也就是后面要提到的listwise），人工标注出一个query下所有doc的序列关系。<br>
+
+上述提及的三种方式，第一种是在实际评估中最经常用到的。因为它人工成本较低，仅需要评估单个的doc和query间的关系。而第三种的人工成本非常的高。<br>
+
+下面介绍几种评估的量化指标：<br>
+**Mean Reciprocal Rank (MRR)**(平均倒数排名)：
+
 
 
 
