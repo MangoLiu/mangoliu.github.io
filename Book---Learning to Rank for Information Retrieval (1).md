@@ -41,12 +41,31 @@ d表示doc，q表示query，q包含了M个term，TF(t,d)表示该term在该doc�
 上述提及的三种方式，第一种是在实际评估中最经常用到的。因为它人工成本较低，仅需要评估单个的doc和query间的关系。而第三种的人工成本非常的高。<br>
 
 下面介绍几种评估的量化指标：<br>
-**Mean Reciprocal Rank (MRR)**(平均倒数排名)：
+**Mean Reciprocal Rank (MRR)**(平均倒数排名)：对于一个query，在rank排序后，第一个相关doc的位置为r，那么1/r本定义为MRR。<br>
 
+**Mean Average Precision (MAP)**，要想定义MAP，首先得先了解Precision at position k(P@k)
+![lty_14](/images/liutieyan/lty_14.png)<br>
+即定义一个二分判断函数，判断doc是否相关，然后看前K个结果中有多少个相关doc。<br>
+这样Average Precision (AP)的定义如下：<br>
+![lty_15](/images/liutieyan/lty_15.png)<br>
+这个AP衡量的是相关doc的平均precision值，并且有考虑位置因素，即越高位的权重越大些。因为在搜索引擎中，高位的权重要比低位的大，即同样是排错，但是高位排错的影响更大。
 
+在test query的全集上的平均AP值被称为MAP.<br>
 
+举个例子：<br>
+![lty_16](/images/liutieyan/lty_16.png)<br>
+P@1 = 1,P@2 = 1/2,P@3 = 2/3.<br>
+AP = 1/2 * (1 * 1 + 1/2 * 0 + 2/3 * 1) = 5/6<br>
 
+**Discounted Cumulative Gain (DCG) and  NDCG**:DCG是考虑了位置因素在其中，位置越高权重越大。IDCG是在最理想情况排序的DCG值，NDCG = DCG/IDCG。所以可以看出NDCG的值在0-1之间，并且值越大说明越接近理想情况。<br>
+以之前在组里做分享的例子来说明：<br>
+![lty_17](/images/liutieyan/lty_17.png)<br>
 
+**Rank Correlation (RC)**:用来衡量model结果的ranked list 和一个给定的相关性list的指标。定义如下：<br>
+![lty_18](/images/liutieyan/lty_18.png)<br>
+
+上述的评估方式都是position based的，即对一个doc打分的扰动，当不足以影响整个序列顺序的时候，对评估指标是不影响的。<br>
+并且这些评估方式也都是query level的，即对每个query独立的评估，然后再看在整个集合上的表现。<br>
 
 
 
