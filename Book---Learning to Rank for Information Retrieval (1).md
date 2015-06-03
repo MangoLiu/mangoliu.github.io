@@ -86,3 +86,18 @@ AP = 1/2 * (1 * 1 + 1/2 * 0 + 2/3 * 1) = 5/6<br>
 LTR的定义：<br>
 广义定义：使用机器学习技术来解决ranking问题的都称为ltr方法。<br>
 狭义定义：满足以下两点的ranking方法：<br>
+1 Feature Based，样本以特征向量的形式体现。<br>
+2 Discriminative Training，(有识别性的训练)a learning-to-rank method has its own input space, output space, hypothesis space, and loss function.Discriminative Training是一个基于训练集的自动学习过程。<br>
+
+---------------
+LTR框架<br>
+![lty_110](/images/liutieyan/lty_110.png)<br>
+ltr是有监督学习，因此是需要有标注的training set。很多机器学习都可以套在上述流程图中。不同的方法主要体现在不同的input space，不同的的output space，不同的假设空间，不同的损失函数。<br>
+
+The Pointwise Approach：<br>
+输入是一个单独的特征向量表示的数据，输出是该doc与query的相关性程度打分。loss function 可以根据打分函数的形式来进行选择。<br>
+使用scoring function对doc进行打分，是query和doc的绝对打分。把一个query下的所有query全部进行打分，然后按照打分进行排序。pointwise没有考虑doc和之间的关系，也没有考虑到position因素的影响。<br>
+对一个query下的各个doc xi的打分为ci，偏序关系如下：<br>
+![lty_111](/images/liutieyan/lty_111.png)<br>
+注：上图来源于网络。<br>
+
