@@ -93,10 +93,24 @@ AP = 1/2 * (1 * 1 + 1/2 * 0 + 2/3 * 1) = 5/6<br>
 ![lty_110](/images/liutieyan/lty_110.png)<br>
 ltr是有监督学习，因此是需要有标注的training set。很多机器学习都可以套在上述流程图中。不同的方法主要体现在不同的input space，不同的的output space，不同的假设空间，不同的损失函数。<br>
 
-The Pointwise Approach：<br>
+**The Pointwise Approach：**<br>
 输入是一个单独的特征向量表示的数据，输出是该doc与query的相关性程度打分。loss function 可以根据打分函数的形式来进行选择。<br>
 使用scoring function对doc进行打分，是query和doc的绝对打分。把一个query下的所有query全部进行打分，然后按照打分进行排序。pointwise没有考虑doc和之间的关系，也没有考虑到position因素的影响。<br>
 对一个query下的各个doc xi的打分为ci，偏序关系如下：<br>
 ![lty_111](/images/liutieyan/lty_111.png)<br>
 注：上图来源于网络。<br>
 
+**The Pairwise Approach：**<br>
+input是两个doc共同表示的feature向量。<br>
+output是{+1，-1}<br>
+pairwise 的loss function只是考虑两个doc之间的相对比较关系。<br>
+![lty_112](/images/liutieyan/lty_112.png)<br>
+注：上图来源于网络。<br>
+注：ML中不同类别的区别是从input空间，output空间，假设空间以及loss function四个方面加以区分的。<br>
+<br>
+上述三种方法的总结：<br>
+![lty_113](/images/liutieyan/lty_113.png)<br>
+<br>
+后续会用到的概念表示:<br>
+![lty_114](/images/liutieyan/lty_114.png)<br>
+<br>
