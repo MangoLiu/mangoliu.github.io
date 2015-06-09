@@ -13,7 +13,6 @@ Cohen,Schapire,Singer  AT&T shannon laboratory<br>
 #### Learning a combination of ordering functions
 ------------
 
-
 #### ordering instances with a preference function
 ------------
 
