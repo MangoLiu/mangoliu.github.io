@@ -23,13 +23,27 @@ square loss的图像如下：<br>
 #### 2.3 Classification-Based Algorithms
 ------------------
 基于分类的方法和基于回归的方法有所不同，它的输出是有限的label名称，而不是一个实数值。<br>
-**SVM-Based Method**用于二分类，不妨先假设为线性函数：f(w,x) = wT*x。SVM的形式如下：<br>
+**SVM-Based Method**用于二分类，简单的说是就是在N维的空间中使用N-1w维的超平面来做分割。不妨先假设为线性函数：f(w,x) = wT*x。SVM的形式如下：<br>
 ![lty_22](/images/liutieyan/lty_22.png)<br>
 SVM使用的是hinge loss，即分类正确时loss为0,不正确时为线性惩罚。hinge loss的形式如下：<br>
 ![lty_23](/images/liutieyan/lty_23.png)<br>
+图中的hinge loss 的yj取值是{+1，-1}。<br>
+SVM通过使用kernel trick来处理非线性case。<br>
+
+注：关于SVM参考[支持向量机通俗导论（理解SVM的三层境界）](http://blog.csdn.net/v_july_v/article/details/7624837)。
 
 
-注：关于SVM详见机器学习---SVM.
+**Logistic Regression-Based Method**逻辑斯特回归常用于二分类，虽然它的名字中含有regression。<br>
+对于document xj 它的几率的对数形式为：<br>
+![lty_24](/images/liutieyan/lty_24.png)<br>
+接下来，它可以转换成：<br>
+![lty_25](/images/liutieyan/lty_25.png)<br>
+参数wt可以通过最大似然估计来估算。<br>
+
+**Boosting Tree-Based Method**是多分类器。pass<br>
+
+
+
 #### 2.4 OrdinalRegression-Based Algorithms
 ------------------
 
