@@ -12,7 +12,7 @@ Cohen,Schapire,Singer  AT&T shannon laboratory<br>
 Rf(u,v)=1，意味着u好于v，反之。<br>
 
 
-#### ordering instances with a preference function
+#### Ordering instances with a preference function
 ------------
 为了衡量order，我们需要先定义一下衡量的标准。<br>
 ![2](/images/paper/paper_ltot_2.png)<br>
@@ -29,8 +29,6 @@ OUTPUT一个接近最优解的order。<br>
 初始时，计算一个点的出度入度的和。（其实，这样做是因为有的情形下|PREF(u,v)| != |PREF(v,u)|。要是|PREF(u,v)| == |PREF(v,u)|，可以仅考虑PREF(v,u)）。选择值最大的，挑选出去，然后在剩余的基础上重新计算各个点的出入度值（其实就是加上原来它们和挑选出去node之间的值，也就是while语句块中的最后一句代码所示。）直至全部挑选出去，这个挑选序列就是最终的顺序。<br>
 当|PREF(u,v)| == |PREF(v,u)|时，如下：<br>
 ![4](/images/paper/paper_ltot_4.png)<br>
-
-
 
 #### Learning a good weight vector 
 ------------
